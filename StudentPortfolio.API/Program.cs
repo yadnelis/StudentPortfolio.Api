@@ -13,12 +13,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IAcknowledgementsRepository, AcknowledgementsRepository>();
+builder.Services.AddScoped<IStudentsRepository, StudentsRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
+var serverVersion = ServerVersion.AutoDetect(connectionString);
 
-builder.Services.AddDbContext<StudentPortfolioContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<StudentPortfolioContext>(sbContextoptions =>
+    sbContextoptions
+    .UseMySql(connectionString, serverVersion)
+    .EnableDetailedErrors()
+);
 
 var app = builder.Build();
 
