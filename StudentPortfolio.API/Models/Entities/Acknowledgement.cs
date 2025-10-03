@@ -19,11 +19,9 @@ namespace StudentPortfolio.API.Models.Entities
         public DateTimeOffset? DeletedAt { get; set; }
         public DateTimeOffset DateCreated { get; set; }
 
-        public Guid? AcknowledmentCompetitionId { get; set; }
-        public AcknowledmentCompetition AcknowledmentCompetition { get; set; }
+        public AcknowledgementCompetition AcknowledmentCompetition { get; set; }
 
 
-        public Guid? AcknowledgementStudentOrganizationId { get; set; }
         public AcknowledgementStudentOrganization AcknowledgementStudentOrganization { get; set; }
 
         public Guid StudentId { get; set; }

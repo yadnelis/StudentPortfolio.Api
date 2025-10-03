@@ -2,7 +2,7 @@
 
 namespace StudentPortfolio.API.Models.Entities
 {
-    public class AcknowledmentCompetition : IModel
+    public class AcknowledgementCompetition : IModel
     {
         public Guid Id { get; set; }
         public int? Position {  get; set; }
