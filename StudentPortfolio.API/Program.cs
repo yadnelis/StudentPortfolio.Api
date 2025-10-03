@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using StudentPortfolio.API.Infrastructure;
 using StudentPortfolio.API.Models;
@@ -7,13 +8,14 @@ using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
+// Add services to the container.
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 // Repositories
 builder.Services.AddScoped<IStudentsRepository, StudentsRepository>();

@@ -4,7 +4,7 @@ namespace StudentPortfolio.API.Models.Dtos.Request
 {
     public class UpdateAcknowledgementRequets
     {
-        public AcknowledgementType Type { get; set; }
+        public AcknowledgementType? Type { get; set; }
         public string Place { get; set; }
         public string Description { get; set; }
         public DateOnly? Date { get; set; }
