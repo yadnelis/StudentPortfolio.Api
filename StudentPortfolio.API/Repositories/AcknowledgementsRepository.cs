@@ -18,10 +18,8 @@ namespace StudentPortfolio.API.Repositories
     public class AcknowledgementsRepository(StudentPortfolioContext ctx)
         : BaseRepo<Acknowledgement>(ctx), IAcknowledgementsRepository
     {
-        public override Task<Acknowledgement> Get(Guid id)
-            => base.Get(x => x.Id == id)
-            .Include(x => x.Student)
-            .FirstOrDefaultAsync();
+        public override IQueryable<Acknowledgement> IncludeRelatedEntities(IQueryable<Acknowledgement> query)
+            => query.Include(x => x.Student);
 
         public Task<Acknowledgement> Create(CreateAcknowledgementRequest request)
         {

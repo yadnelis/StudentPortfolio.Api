@@ -1,18 +1,16 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StudentPortfolio.API.Models;
 using StudentPortfolio.API.Models.Dtos.Request;
 using StudentPortfolio.API.Models.Dtos.Response;
 using StudentPortfolio.API.Repositories;
-using StudentPortfolio.API.Repositories.Base;
 
 namespace StudentPortfolio.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AcknowledgementsController(IAcknowledgementsRepository repo, IWebHostEnvironment env) 
-        : AppControllerBase(env)
+    public class StudentController(IStudentsRepository repo, IWebHostEnvironment env)
+       : AppControllerBase(env)
     {
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -20,7 +18,7 @@ namespace StudentPortfolio.API.Controllers
             try
             {
                 var entity = await repo.Get(id);
-                return Ok(entity.Adapt<GetAcknowledgementResponse>());
+                return Ok(entity.Adapt<GetStudentResponse>());
             }
             catch (Exception ex)
             {
@@ -29,12 +27,12 @@ namespace StudentPortfolio.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateAcknowledgementRequest request)
+        public async Task<IActionResult> Post(CreateStudentRequest request)
         {
             try
             {
                 var entity = await repo.Create(request);
-                return Ok(entity.Adapt<GetAcknowledgementResponse>());
+                return Ok(entity.Adapt<GetStudentResponse>());
             }
             catch (Exception ex)
             {
@@ -43,12 +41,12 @@ namespace StudentPortfolio.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, UpdateAcknowledgementRequets request)
+        public async Task<IActionResult> Update(Guid id, UpdateStudentRequest request)
         {
             try
             {
                 var entity = await repo.Update(id, request);
-                return Ok(entity.Adapt<GetAcknowledgementResponse>());
+                return Ok(entity.Adapt<GetStudentResponse>());
             }
             catch (Exception ex)
             {

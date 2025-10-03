@@ -1,12 +1,10 @@
-﻿namespace StudentPortfolio.API.Models.Dtos.Response
+﻿namespace StudentPortfolio.API.Models.Dtos.Request
 {
-    public class GetStudentResponse
+    public class CreateStudentRequest
     {
-        public Guid Id { get; set; }
         public string InstitutionalId { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public string FullName => string.Join(" ", [Name, LastName]);
         public DateOnly? StartDate { get; set; }
         public string Institution { get; set; }
     }

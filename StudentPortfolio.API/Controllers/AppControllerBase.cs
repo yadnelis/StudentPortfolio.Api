@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace StudentPortfolio.API.Controllers
 {
-    public class AppControllerBase(IWebHostEnvironment env, ILogger logger) : ControllerBase
+    public class AppControllerBase(IWebHostEnvironment env) : ControllerBase
     {
+        [ApiExplorerSettings(IgnoreApi = true)]
         public override OkObjectResult Ok([ActionResultObjectValue] object value)
         {
             return base.Ok(new
@@ -16,6 +17,7 @@ namespace StudentPortfolio.API.Controllers
             });
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public new OkObjectResult Ok()
         {
             return base.Ok(new
@@ -25,6 +27,7 @@ namespace StudentPortfolio.API.Controllers
             });
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public BadRequestObjectResult BadRequest([ActionResultObjectValue] Exception error)
         {
             if(env.IsDevelopment())
@@ -33,7 +36,8 @@ namespace StudentPortfolio.API.Controllers
                 {
                     Time = DateTime.UtcNow,
                     Resource = HttpContext.Request.Path,
-                    Exception = error
+                    Exception = error.Message,
+                    StackTrace = error.StackTrace
                 });
             }
             else

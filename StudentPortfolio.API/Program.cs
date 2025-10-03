@@ -13,7 +13,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// Repositories
 builder.Services.AddScoped<IStudentsRepository, StudentsRepository>();
+builder.Services.AddScoped<IAcknowledgementsRepository, AcknowledgementsRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 var serverVersion = ServerVersion.AutoDetect(connectionString);

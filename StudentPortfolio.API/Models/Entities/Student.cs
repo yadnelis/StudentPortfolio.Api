@@ -13,5 +13,6 @@ namespace StudentPortfolio.API.Models.Entities
         public bool Deleted { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
         public DateTimeOffset DateCreated { get; set; }
+        public ICollection<Acknowledgement> Acknowledgements { get; set;}
     }
 }

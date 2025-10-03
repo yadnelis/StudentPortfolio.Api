@@ -17,25 +17,28 @@ namespace StudentPortfolio.API.Repositories.Base
         Task Delete(Guid id);
         Task<IEnumerable<TModel>> UpdateMany(Expression<Func<TModel, bool>> filter, Action<TModel> update);
         Task<TModel> Update(Expression<Func<TModel, bool>> filter, Action<TModel> update);
+        IQueryable<TModel> IncludeRelatedEntities(IQueryable<TModel> query);
     }
 
     public abstract class BaseRepo<TModel>(StudentPortfolioContext ctx) : IRepo<TModel>
         where TModel : class, IDeletable, IModel
     {
+        public virtual IQueryable<TModel> IncludeRelatedEntities(IQueryable<TModel> query) => query;
+
         public virtual async Task<TModel> Get(Guid id)
-            => await ctx.Set<TModel>()
+            => await IncludeRelatedEntities(ctx.Set<TModel>())
                 .Where(x => !x.Deleted)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
         public virtual IQueryable<TModel> GetPaginated(int skip, int take = 10)
-            => ctx.Set<TModel>()
+            => IncludeRelatedEntities(ctx.Set<TModel>())
                 .Where(x => !x.Deleted)
                 .OrderBy(x => x.DateCreated)
                 .Skip(skip)
                 .Take(take);
 
         public virtual IQueryable<TModel> GetPaginated(Expression<Func<TModel, bool>> filter, int take = 10, int skip = 0)
-            => ctx.Set<TModel>()
+            => IncludeRelatedEntities(ctx.Set<TModel>())
                 .Where(x => !x.Deleted)
                 .Where(filter)
                 .OrderBy(x => x.DateCreated)
@@ -43,7 +46,7 @@ namespace StudentPortfolio.API.Repositories.Base
                 .Take(take);
 
         public virtual IQueryable<TModel> Get(Expression<Func<TModel, bool>> filter)
-            => ctx.Set<TModel>()
+            => IncludeRelatedEntities(ctx.Set<TModel>())
                 .Where(x => !x.Deleted)
                 .Where(filter);
 
@@ -60,13 +63,13 @@ namespace StudentPortfolio.API.Repositories.Base
         {
             entity.DateCreated = DateTimeOffset.Now;
             var createdEntity = ctx.Set<TModel>().Add(entity);
-            await ctx.SaveChangesAsync();
+            ctx.SaveChanges();
             return createdEntity.Entity;
         }
 
         public virtual async Task<IEnumerable<TModel>> UpdateMany(Expression<Func<TModel, bool>> filter, Action<TModel> update)
         {
-            var updated = ctx.Set<TModel>().Where(x => !x.Deleted).Where(filter);
+            var updated = IncludeRelatedEntities(ctx.Set<TModel>()).Where(x => !x.Deleted).Where(filter);
             await updated.ForEachAsync(update);
             ctx.Update(updated);
             await ctx.SaveChangesAsync();
@@ -75,7 +78,7 @@ namespace StudentPortfolio.API.Repositories.Base
 
         public virtual async Task<TModel> Update(Expression<Func<TModel, bool>> filter, Action<TModel> update)
         {
-            var updated = await ctx.Set<TModel>().Where(x => !x.Deleted).FirstOrDefaultAsync(filter);
+            var updated = await IncludeRelatedEntities(ctx.Set<TModel>()).Where(x => !x.Deleted).FirstOrDefaultAsync(filter);
             update.Invoke(updated);
             ctx.Update(updated);
             await ctx.SaveChangesAsync();
@@ -84,7 +87,7 @@ namespace StudentPortfolio.API.Repositories.Base
 
         public virtual async Task<TModel> Update(Guid id, Action<TModel> update)
         {
-            var updated = await ctx.Set<TModel>().Where(x => !x.Deleted).FirstOrDefaultAsync(x => x.Id == id);
+            var updated = await IncludeRelatedEntities(ctx.Set<TModel>()).Where(x => !x.Deleted).FirstOrDefaultAsync(x => x.Id == id);
             update.Invoke(updated);
             ctx.Update(updated);
             await ctx.SaveChangesAsync();
