@@ -27,6 +27,7 @@ var serverVersion = ServerVersion.AutoDetect(connectionString);
 builder.Services.AddDbContext<StudentPortfolioContext>(sbContextoptions =>
     sbContextoptions
     .UseMySql(connectionString, serverVersion)
+    .UseSnakeCaseNamingConvention()
     .EnableDetailedErrors()
 );
 

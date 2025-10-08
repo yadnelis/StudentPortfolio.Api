@@ -13,7 +13,8 @@ namespace StudentPortfolio.API.Models.Dtos.Request
         public DateOnly? EndDate { get; set; }
         public string OtherType { get; set; }
         public string Email { get; set; }
-        public CreateAcknowledgementCompetitionRequest Competition { get; set; }
-        public CreateAcknowledgementStudentOrganizationRequest StudentOrganization { get; set; }
+        public uint? CompetitionPosition { get; set; }
+        public string CompetitionName { get; set; }
+        public string StudentOrganizatonName { get; set; }
     }
 }

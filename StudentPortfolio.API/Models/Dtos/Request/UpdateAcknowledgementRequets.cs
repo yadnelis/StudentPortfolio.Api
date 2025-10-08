@@ -1,4 +1,5 @@
 ﻿using StudentPortfolio.API.Models.Infrastructure;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortfolio.API.Models.Dtos.Request
 {
@@ -12,7 +13,8 @@ namespace StudentPortfolio.API.Models.Dtos.Request
         public DateOnly? EndDate { get; set; }
         public string OtherType { get; set; }
         public string Email { get; set; }
-        public UpdateAcknowledegementCompetitionRequest Competition { get; set; }
-        public UpdateAcknowledgementStudentOrganizationRequest StudentOrganization { get; set; }
+        public uint? CompetitionPosition { get; set; }
+        public string CompetitionName { get; set; }
+        public string StudentOrganizatonName { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentPortfolio.API.Models.Entities;
+using System.Reflection.Metadata;
 
 namespace StudentPortfolio.API.Infrastructure
 {
@@ -7,16 +8,31 @@ namespace StudentPortfolio.API.Infrastructure
     {
         public DbSet<Acknowledgement> Acknowledgements { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<AcknowledgementCompetition> AcknowledgementCompetitions { get; set; }
-        public DbSet<AcknowledgementStudentOrganization> AcknowledgementStudentOrganizations { get; set; }
 
         public StudentPortfolioContext(DbContextOptions<StudentPortfolioContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
-            modelBuilder.Entity<Acknowledgement>()
-                .HasOne(x => x.AcknowledmentCompetition)
-                .WithOne(x => x.Acknowledgement);
+
+            //configurationBuilder.Properties<string>()
+            //    //.AreUnicode(false)
+            //    //.AreFixedLength()
+            //    //.HaveMaxLength(256);
+            //    .HaveColumnType("tinytext");
+
+            configurationBuilder.Properties<int>()
+              //.AreUnicode(false)
+              //.AreFixedLength()
+              //.HaveMaxLength(256);
+              .HaveColumnType("smallint");
+
+            configurationBuilder.Properties<bool>()
+             //.AreUnicode(false)
+             //.AreFixedLength()
+             //.HaveMaxLength(256);
+             .HaveColumnType("bit");
+
+            base.ConfigureConventions(configurationBuilder);
         }
     }
 }
