@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortfolio.API.Models.Dtos.Request
 {
-    public class UpdateAcknowledgementRequets
+    public class UpdateAcknowledgementRequest
     {
         public AcknowledgementType? Type { get; set; }
         public string Place { get; set; }
