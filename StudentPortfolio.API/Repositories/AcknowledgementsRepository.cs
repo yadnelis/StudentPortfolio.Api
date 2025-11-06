@@ -11,7 +11,7 @@ namespace StudentPortfolio.API.Repositories
     public interface IAcknowledgementsRepository : IRepo<Acknowledgement> 
     {
         Task<Acknowledgement> Create(CreateAcknowledgementRequest request);
-        Task<Acknowledgement> Update(Guid id, UpdateAcknowledgementRequets request);
+        Task<Acknowledgement> Update(Guid id, UpdateAcknowledgementRequest request);
     }
 
 
@@ -26,7 +26,7 @@ namespace StudentPortfolio.API.Repositories
             return base.Create(request.Adapt<Acknowledgement>());
         }
 
-        public Task<Acknowledgement> Update(Guid id, UpdateAcknowledgementRequets request)
+        public Task<Acknowledgement> Update(Guid id, UpdateAcknowledgementRequest request)
         {
             return base.Update(id, 
                 (entity) =>

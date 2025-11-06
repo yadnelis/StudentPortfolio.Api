@@ -43,7 +43,7 @@ namespace StudentPortfolio.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, UpdateAcknowledgementRequets request)
+        public async Task<IActionResult> Update(Guid id, UpdateAcknowledgementRequest request)
         {
             try
             {
