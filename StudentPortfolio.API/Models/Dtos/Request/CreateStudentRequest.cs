@@ -1,6 +1,8 @@
-﻿namespace StudentPortfolio.API.Models.Dtos.Request
+﻿using StudentPortfolio.API.Models.Dtos.Base;
+
+namespace StudentPortfolio.API.Models.Dtos.Request
 {
-    public class CreateStudentRequest
+    public class CreateStudentRequest : IBaseModRequest
     {
         public string InstitutionalId { get; set; }
         public string Name { get; set; }

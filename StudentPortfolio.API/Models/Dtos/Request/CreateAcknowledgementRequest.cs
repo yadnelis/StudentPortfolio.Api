@@ -1,8 +1,9 @@
-﻿using StudentPortfolio.API.Models.Infrastructure;
+﻿using StudentPortfolio.API.Models.Dtos.Base;
+using StudentPortfolio.API.Models.Infrastructure;
 
 namespace StudentPortfolio.API.Models.Dtos.Request
 {
-    public class CreateAcknowledgementRequest
+    public class CreateAcknowledgementRequest: IBaseModRequest
     {
         public Guid StudentId { get; set; }
         public AcknowledgementType Type { get; set; }

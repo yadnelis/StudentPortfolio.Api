@@ -1,7 +1,10 @@
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using StudentPortfolio.API.Infrastructure;
+using StudentPortfolio.API.Infrastructure.Validation;
 using StudentPortfolio.API.Models;
+using StudentPortfolio.API.Models.Dtos.Request;
+using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories;
 using StudentPortfolio.API.Repositories.Base;
 using System.Data;
@@ -20,6 +23,10 @@ builder.Services.AddSwaggerGen();
 // Repositories
 builder.Services.AddScoped<IStudentsRepository, StudentsRepository>();
 builder.Services.AddScoped<IAcknowledgementsRepository, AcknowledgementsRepository>();
+
+//Validators
+builder.Services.AddScoped<IValidator<Acknowledgement, CreateAcknowledgementRequest, UpdateAcknowledgementRequest>, AcknowledgementValidator>();
+builder.Services.AddScoped<IValidator<Student, CreateStudentRequest, UpdateStudentRequest>, StudentValidator>();
 
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 var serverVersion = ServerVersion.AutoDetect(connectionString);

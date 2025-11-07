@@ -1,9 +1,10 @@
-﻿using StudentPortfolio.API.Models.Infrastructure;
+﻿using StudentPortfolio.API.Models.Dtos.Base;
+using StudentPortfolio.API.Models.Infrastructure;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortfolio.API.Models.Dtos.Request
 {
-    public class UpdateAcknowledgementRequest
+    public class UpdateAcknowledgementRequest : IBaseModRequest
     {
         public AcknowledgementType? Type { get; set; }
         public string Place { get; set; }

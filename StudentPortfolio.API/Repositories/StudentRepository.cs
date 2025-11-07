@@ -12,6 +12,7 @@ namespace StudentPortfolio.API.Repositories
     {
         Task<Student> Create(CreateStudentRequest request);
         Task<Student> Update(Guid id, UpdateStudentRequest request);
+        Task<Student> GetByInstitutionalId(string institutionalId);
     }
 
 
@@ -21,6 +22,11 @@ namespace StudentPortfolio.API.Repositories
         public Task<Student> Create(CreateStudentRequest request)
         {
             return base.Create(request.Adapt<Student>());
+        }
+
+        public async Task<Student> GetByInstitutionalId(string id)
+        {
+            return await base.Get(x => x.InstitutionalId == id).FirstOrDefaultAsync();
         }
 
         public Task<Student> Update(Guid id, UpdateStudentRequest request)
