@@ -12,7 +12,7 @@ namespace StudentPortfolio.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController(
+    public class StudentsController(
         IStudentsRepository repo,
         IWebHostEnvironment env,
         IValidator<Student, CreateStudentRequest, UpdateStudentRequest> validator
