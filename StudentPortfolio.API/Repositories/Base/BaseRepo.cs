@@ -10,6 +10,7 @@ namespace StudentPortfolio.API.Repositories.Base
     public interface IRepo<TModel>
         where TModel : class, IDeletable, IModel
     {
+        IQueryable<TModel> Get();
         Task<TModel> Get(Guid id);
         IQueryable<TModel> GetPaginated(int skip, int take = 10);
         IQueryable<TModel> GetPaginated(Expression<Func<TModel, bool>> filter, int take = 10, int skip = 0);
@@ -24,6 +25,10 @@ namespace StudentPortfolio.API.Repositories.Base
         where TModel : class, IDeletable, IModel
     {
         public virtual IQueryable<TModel> IncludeRelatedEntities(IQueryable<TModel> query) => query;
+
+        public virtual IQueryable<TModel> Get()
+            => IncludeRelatedEntities(ctx.Set<TModel>())
+                .Where(x => !x.Deleted);
 
         public virtual async Task<TModel> Get(Guid id)
             => await IncludeRelatedEntities(ctx.Set<TModel>())

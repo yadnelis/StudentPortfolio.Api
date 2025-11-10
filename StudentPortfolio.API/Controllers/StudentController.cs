@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using StudentPortfolio.API.Infrastructure.Validation;
 using StudentPortfolio.API.Models.Dtos.Request;
 using StudentPortfolio.API.Models.Dtos.Response;
@@ -17,6 +18,21 @@ namespace StudentPortfolio.API.Controllers
         IValidator<Student, CreateStudentRequest, UpdateStudentRequest> validator
     ) : AppControllerBase(env)
     {
+        [HttpGet]
+        public async Task<IActionResult> Get(ODataQueryOptions<Student> opts)
+        {
+            try
+            {
+                var query = repo.Get();
+                var results = opts.ApplyTo(query) as IQueryable<Student>;
+                return Ok(results.ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {

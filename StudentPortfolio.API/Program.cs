@@ -1,20 +1,23 @@
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using StudentPortfolio.API.Infrastructure;
 using StudentPortfolio.API.Infrastructure.Validation;
-using StudentPortfolio.API.Models;
 using StudentPortfolio.API.Models.Dtos.Request;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories;
-using StudentPortfolio.API.Repositories.Base;
-using System.Data;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
