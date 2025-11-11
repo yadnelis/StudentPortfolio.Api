@@ -1,16 +1,13 @@
 using Mapster;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using StudentPortfolio.API.Infrastructure;
 using StudentPortfolio.API.Infrastructure.Validation;
 using StudentPortfolio.API.Models.Dtos.Request.Acknowledgement;
 using StudentPortfolio.API.Models.Dtos.Request.Student;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
@@ -54,10 +51,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
+app.UseAuthorization();
 app.MapControllers();
 
-app.Map("/", () => "Ok");
+app.UseCors(config =>
+{
+    config.AllowAnyOrigin();
+    config.AllowAnyMethod();
+});
+
+app.Map("/api", () => "Ok");
 
 app.Run();

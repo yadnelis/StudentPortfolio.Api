@@ -21,4 +21,27 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Update="wwwroot\local\**\*.*" CopyToPublishDirectory="Never" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+	<PropertyGroup>
+		<ReactAppDir>$(MSBuildStartupDirectory)\StudentPortfolio.WebApp</ReactAppDir>
+	</PropertyGroup>
+
+
+	<Target Name="PublishRunWebpack" BeforeTargets="PrepareForPublish">
+		<!-- Ensure Node.js is installed -->
+		<Exec WorkingDirectory="$(ReactAppDir)" Command="npm install" />
+		<!-- Build the React app -->
+		<Exec WorkingDirectory="$(ReactAppDir)" Command="npm run build" />
+		<!-- Copy the build output to wwwroot -->
+		<!--<RemoveDir Directories="wwwroot" />-->
+		<!--<Copy SourceFiles="$(ReactAppDir)/**/*" DestinationFolder="wwwroot\" />-->
+	</Target>
 </Project>
