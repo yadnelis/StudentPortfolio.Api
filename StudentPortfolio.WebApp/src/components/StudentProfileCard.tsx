@@ -75,7 +75,7 @@ export const StudentProfileCard: FC<StudentProfileCardProps> = ({
       )}
       <div className="flex h-fit gap-5 justify-end">
         {childrenLenght > 2 && (
-          <Button onClick={(e) => setShowHidden((c) => !c)}>
+          <Button onClick={() => setShowHidden((c) => !c)}>
             {showHidden ? "Show less" : "Show more"}
             {showHidden ? (
               <ChevronUp className="inline-block" />

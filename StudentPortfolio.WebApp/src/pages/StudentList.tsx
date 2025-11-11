@@ -16,7 +16,7 @@ export const StudentList: FC = () => {
     };
 
     get();
-  });
+  }, []);
 
   return (
     <section className="flex flex-col gap-12 justify-center items-center w-full p-12">
