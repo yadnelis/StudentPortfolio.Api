@@ -1,8 +1,8 @@
 ﻿using StudentPortfolio.API.Models.Dtos.Base;
 
-namespace StudentPortfolio.API.Models.Dtos.Request
+namespace StudentPortfolio.API.Models.Dtos.Request.Student
 {
-    public class UpdateStudentRequest : IBaseModRequest
+    public class CreateStudentRequest : IBaseModRequest
     {
         public string InstitutionalId { get; set; }
         public string Name { get; set; }

@@ -13,7 +13,7 @@ namespace StudentPortfolio.API.Controllers
             {
                 Entity = value,
                 Time = DateTime.UtcNow,
-                Resource = HttpContext.Request.Path,
+                Resource = HttpContext.Request.Path.Value,
             });
         }
 
@@ -23,7 +23,7 @@ namespace StudentPortfolio.API.Controllers
             return base.Ok(new
             {
                 Time = DateTime.UtcNow,
-                Resource = HttpContext.Request.Path,
+                Resource = HttpContext.Request.Path.Value,
             });
         }
 
@@ -35,7 +35,7 @@ namespace StudentPortfolio.API.Controllers
                 return base.BadRequest(new
                 {
                     Time = DateTime.UtcNow,
-                    Resource = HttpContext.Request.Path,
+                    Resource = HttpContext.Request.Path.Value,
                     Exception = error.Message,
                     StackTrace = error.StackTrace
                 });
@@ -45,7 +45,7 @@ namespace StudentPortfolio.API.Controllers
                 return base.BadRequest(new
                 {
                     Time = DateTime.UtcNow,
-                    Resource = HttpContext.Request.Path
+                    Resource = HttpContext.Request.Path.Value
                 });
             }
         }

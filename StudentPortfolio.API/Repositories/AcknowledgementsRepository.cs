@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentPortfolio.API.Infrastructure;
-using StudentPortfolio.API.Models.Dtos.Request;
+using StudentPortfolio.API.Models.Dtos.Request.Acknowledgement;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories.Base;
 

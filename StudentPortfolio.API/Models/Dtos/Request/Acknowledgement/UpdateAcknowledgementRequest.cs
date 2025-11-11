@@ -2,7 +2,7 @@
 using StudentPortfolio.API.Models.Infrastructure;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudentPortfolio.API.Models.Dtos.Request
+namespace StudentPortfolio.API.Models.Dtos.Request.Acknowledgement
 {
     public class UpdateAcknowledgementRequest : IBaseModRequest
     {

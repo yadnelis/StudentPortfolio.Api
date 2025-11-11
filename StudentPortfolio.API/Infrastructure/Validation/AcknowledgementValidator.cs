@@ -1,5 +1,5 @@
 ﻿using StudentPortfolio.API.Infrastructure.Validation.Models;
-using StudentPortfolio.API.Models.Dtos.Request;
+using StudentPortfolio.API.Models.Dtos.Request.Acknowledgement;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Models.Infrastructure;
 using StudentPortfolio.API.Repositories;

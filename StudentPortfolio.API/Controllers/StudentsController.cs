@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.EntityFrameworkCore;
 using StudentPortfolio.API.Infrastructure.Validation;
-using StudentPortfolio.API.Models.Dtos.Request;
-using StudentPortfolio.API.Models.Dtos.Response;
+using StudentPortfolio.API.Models.Dtos.Request.Student;
+using StudentPortfolio.API.Models.Dtos.Response.Student;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories;
 
@@ -23,9 +24,8 @@ namespace StudentPortfolio.API.Controllers
         {
             try
             {
-                var query = repo.Get();
-                var results = opts.ApplyTo(query) as IQueryable<Student>;
-                return Ok(results.ToList());
+                var query = repo.Query(opts);
+                return Ok(query);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@ using StudentPortfolio.API.Infrastructure;
 using StudentPortfolio.API.Models.Dtos.Request;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Models.Infrastructure;
+using System;
 using System.Linq.Expressions;
 
 namespace StudentPortfolio.API.Repositories.Base
@@ -11,6 +12,7 @@ namespace StudentPortfolio.API.Repositories.Base
         where TModel : class, IDeletable, IModel
     {
         IQueryable<TModel> Get();
+        IRepo<TModel> DisableLazyLoading();
         Task<TModel> Get(Guid id);
         IQueryable<TModel> GetPaginated(int skip, int take = 10);
         IQueryable<TModel> GetPaginated(Expression<Func<TModel, bool>> filter, int take = 10, int skip = 0);
@@ -97,6 +99,12 @@ namespace StudentPortfolio.API.Repositories.Base
             ctx.Update(updated);
             await ctx.SaveChangesAsync();
             return updated;
+        }
+
+        public IRepo<TModel> DisableLazyLoading()
+        {
+            ctx.ChangeTracker.LazyLoadingEnabled = false;
+            return this;
         }
     }
 }

@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Query.Validator;
+using Microsoft.EntityFrameworkCore;
 using StudentPortfolio.API.Infrastructure.Validation;
 using StudentPortfolio.API.Models;
-using StudentPortfolio.API.Models.Dtos.Request;
-using StudentPortfolio.API.Models.Dtos.Response;
+using StudentPortfolio.API.Models.Dtos.Request.Acknowledgement;
+using StudentPortfolio.API.Models.Dtos.Response.Acknowledgement;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories;
 using StudentPortfolio.API.Repositories.Base;
@@ -21,20 +22,22 @@ namespace StudentPortfolio.API.Controllers
         IValidator<Acknowledgement, CreateAcknowledgementRequest, UpdateAcknowledgementRequest> validator
     ) : AppControllerBase(env)
     {
-        [HttpGet]
-        public async Task<IActionResult> Get(ODataQueryOptions<Acknowledgement> opts)
-        {
-            try
-            {
-                var query = repo.Get();
-                var results = opts.ApplyTo(query) as IQueryable<Acknowledgement>;
-                return Ok(results.ToList());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> Get(ODataQueryOptions<Acknowledgement> opts)
+        //{
+        //    try
+        //    {
+        //        var query = repo.DisableLazyLoading().Get();
+        //        var results = opts.ApplyTo(query) as IQueryable<Acknowledgement>;
+        //        var list = await results.ToListAsync();
+        //        var adapted = list.Adapt(new List<GetAcknowledgementResponse>());
+        //        return Ok(adapted);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex);
+        //    }
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -60,7 +63,7 @@ namespace StudentPortfolio.API.Controllers
                     return BadRequest(validationResult);
 
                 var entity = await repo.Create(request);
-                return Ok(entity.Adapt<GetAcknowledgementResponse>());
+                return Ok(entity.Adapt<GetAcknowledgementResponseNoNavigation>());
             }
             catch (Exception ex)
             {
@@ -78,7 +81,7 @@ namespace StudentPortfolio.API.Controllers
                     return BadRequest(validationResult);
 
                 var entity = await repo.Update(id, request);
-                return Ok(entity.Adapt<GetAcknowledgementResponse>());
+                return Ok(entity.Adapt<GetAcknowledgementResponseNoNavigation>());
             }
             catch (Exception ex)
             {

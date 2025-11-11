@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using StudentPortfolio.API.Infrastructure;
 using StudentPortfolio.API.Infrastructure.Validation;
-using StudentPortfolio.API.Models.Dtos.Request;
+using StudentPortfolio.API.Models.Dtos.Request.Acknowledgement;
+using StudentPortfolio.API.Models.Dtos.Request.Student;
 using StudentPortfolio.API.Models.Entities;
 using StudentPortfolio.API.Repositories;
 using System.Text.Json.Serialization;
@@ -14,10 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
 // Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(options =>
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

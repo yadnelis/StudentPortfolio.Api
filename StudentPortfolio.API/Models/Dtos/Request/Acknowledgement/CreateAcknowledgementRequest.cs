@@ -1,12 +1,10 @@
-﻿using StudentPortfolio.API.Models.Infrastructure;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using StudentPortfolio.API.Models.Dtos.Base;
+using StudentPortfolio.API.Models.Infrastructure;
 
-namespace StudentPortfolio.API.Models.Dtos.Response
+namespace StudentPortfolio.API.Models.Dtos.Request.Acknowledgement
 {
-    public class GetAcknowledgementResponse
+    public class CreateAcknowledgementRequest : IBaseModRequest
     {
-
-        public Guid Id { get; set; }
         public Guid StudentId { get; set; }
         public AcknowledgementType Type { get; set; }
         public string Place { get; set; }
@@ -16,12 +14,8 @@ namespace StudentPortfolio.API.Models.Dtos.Response
         public DateOnly? EndDate { get; set; }
         public string OtherType { get; set; }
         public string Email { get; set; }
-        public DateTimeOffset DateCreated { get; set; }
         public uint? CompetitionPosition { get; set; }
         public string CompetitionName { get; set; }
         public string StudentOrganizatonName { get; set; }
-
-        public GetStudentResponse Student { get; set; }
     }
 }
-
