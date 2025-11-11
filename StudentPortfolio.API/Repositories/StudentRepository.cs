@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Query.Validator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentPortfolio.API.Infrastructure;
@@ -30,7 +31,16 @@ namespace StudentPortfolio.API.Repositories
         {
             var query = this.Get();
             // posibly add some limits here to avoid users querying by properties we don't like
-            var results = opts.ApplyTo(query) as IQueryable<Student>;
+            var results = opts.ApplyTo(query, new ODataQuerySettings { PageSize = 100 }, 
+                AllowedQueryOptions.Skip | 
+                AllowedQueryOptions.Filter | 
+                AllowedQueryOptions.OrderBy | 
+                AllowedQueryOptions.Top | 
+                AllowedQueryOptions.Skip | 
+                AllowedQueryOptions.Count
+            ) as IQueryable<Student>;
+
+            // Mapster breaks here so it is necesary to use this type of query
             return results.Select(st => new GetStudentResponse
             {
                 Id = st.Id,
