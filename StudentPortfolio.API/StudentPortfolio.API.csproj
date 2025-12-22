@@ -37,21 +37,4 @@
 		<!-- Build the React app -->
 		<Exec WorkingDirectory="$(ReactAppDir)" Command="npm run build" />
 	</Target>
-
-	<!-- Attempt to install dotnet-ef if not present -->
-	<Target Name="EnsureDotnetEfInstalled" BeforeTargets="GenerateMigrationBundle">
-		<!-- Run a command that tests if dotnet ef runs -->
-		<Exec Command="dotnet ef --version" IgnoreExitCode="true" StdOutEncoding="utf-8" StdErrEncoding="utf-8">
-			<Output TaskParameter="ExitCode" PropertyName="DotnetEfExitCode" />
-		</Exec>
-
-		<!-- If dotnet ef is missing (ExitCode != 0), install it -->
-		<Message Text="dotnet ef check returned exit code $(DotnetEfExitCode)" Importance="High" />
-		<Exec Condition="'$(DotnetEfExitCode)' != '0'" Command="dotnet tool install --global dotnet-ef --version 9.0.10" ContinueOnError="false" />
-	</Target>
-
-	<!-- After Publish, generate the EF migration bundle -->
-	<Target Name="GenerateMigrationBundle" AfterTargets="Publish">
-		<Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="dotnet ef migrations bundle --force --self-contained --output &quot;$(TargetDir)efbundle.exe&quot;" />
-	</Target>
 </Project>
