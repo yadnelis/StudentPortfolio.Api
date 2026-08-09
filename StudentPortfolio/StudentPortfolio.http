@@ -1,0 +1,6 @@
+@StudentPortfolio_HostAddress = http://localhost:5177
+
+GET {{StudentPortfolio_HostAddress}}/
+Accept: application/json
+
+###

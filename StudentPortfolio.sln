@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentPortfolio.API", "StudentPortfolio.API\StudentPortfolio.API.csproj", "{3A2B720C-B32F-48A4-A832-DF0A624C1267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentPortfolio", "StudentPortfolio\StudentPortfolio.csproj", "{3A2B720C-B32F-48A4-A832-DF0A624C1267}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "StudentPortfolio.WebApp", "StudentPortfolio.WebApp\StudentPortfolio.WebApp.esproj", "{507ED832-BEAC-402C-9A59-3250A83F85E0}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "StudentPortfolio.Client", "StudentPortfolio.Client\StudentPortfolio.Client.esproj", "{507ED832-BEAC-402C-9A59-3250A83F85E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

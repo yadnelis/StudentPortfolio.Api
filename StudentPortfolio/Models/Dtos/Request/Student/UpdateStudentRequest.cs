@@ -1,0 +1,13 @@
+﻿using StudentPortfolio.Models.Dtos.Base;
+
+namespace StudentPortfolio.Models.Dtos.Request.Student
+{
+    public class UpdateStudentRequest : IBaseModRequest
+    {
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public DateOnly? StartDate { get; set; }
+        public DateOnly? EndDate { get; set; }
+        public string Institution { get; set; }
+    }
+}
