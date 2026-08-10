@@ -12,7 +12,7 @@ export const AddStudentButton: FC<ButtonProps> = ({ className }) => {
     <div
       className={cn(
         "relative group/addbtn transition-colors hover:to-green-400 hover:from-accent-200 p-1 bg-linear-to-b from-green-400 to-lime-600 hover:animate-light-bounce rounded-full",
-        className
+        className,
       )}
     >
       <IconButton

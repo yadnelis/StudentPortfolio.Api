@@ -4,11 +4,11 @@ import toast from "react-hot-toast";
 import { StudentApi } from "../api/StudentApi";
 import { AcknowledgementListItem } from "../components/AcknowledgementListItem";
 import { Button } from "../components/Button";
-import { LoaderSpinner } from "../components/LoaderSpinner";
 import { StudentProfileCard } from "../components/StudentProfileCard";
 import { StudentProfileCardSkeleton } from "../components/StudentProfileCardSkeleton";
 import { AppEvents, emitEvent, useEvent } from "../hooks/useEvent";
 import { useListQuery } from "../hooks/useQuery";
+import { cn } from "../utilities/cs";
 import {
   buildQuery,
   getQueryFromSearchValue,
@@ -18,7 +18,7 @@ import {
 export const StudentList: FC = () => {
   const initialSearch = useMemo(
     () => getQueryFromSearchValue(getQueryStringVariable("search")),
-    []
+    [],
   );
 
   const [students, studentHandlers, studentMeta] = useListQuery(
@@ -28,7 +28,7 @@ export const StudentList: FC = () => {
       onError: () => {
         toast.error("An error occured fetching students 😟");
       },
-    }
+    },
   );
 
   const search = (value: string | undefined) => {
@@ -51,7 +51,7 @@ export const StudentList: FC = () => {
     () => {
       studentHandlers.refetch();
     },
-    []
+    [],
   );
 
   useEvent(
@@ -66,7 +66,7 @@ export const StudentList: FC = () => {
         value: e.detail?.student?.institutionalId,
       });
     },
-    []
+    [],
   );
 
   useEvent(
@@ -77,7 +77,7 @@ export const StudentList: FC = () => {
         value: e.detail?.institutionalId,
       });
     },
-    []
+    [],
   );
 
   useEvent(AppEvents.Search, (e) => search(e.detail?.value), []);
@@ -89,7 +89,7 @@ export const StudentList: FC = () => {
         studentHandlers.removeItem(e.detail.id);
       }
     },
-    []
+    [],
   );
 
   return (
@@ -110,12 +110,24 @@ export const StudentList: FC = () => {
                 ))}
               </StudentProfileCard>
             ))}
-            {studentMeta.morePages && (
-              <Button onClick={() => studentHandlers.fetchAppend()}>
-                Show more results{" "}
-                <LoaderSpinner visible={studentMeta.fetchingMore} size="2xs" />
-              </Button>
-            )}
+            <StudentProfileCardSkeleton
+              visible={studentMeta.fetchingMore}
+              delay={50}
+            />
+            <StudentProfileCardSkeleton
+              visible={studentMeta.fetchingMore}
+              delay={50}
+            />
+
+            <Button
+              onClick={() => studentHandlers.fetchAppend()}
+              className={cn({
+                "invisible user-events-none":
+                  !studentMeta.morePages || studentMeta.fetchingMore,
+              })}
+            >
+              Show more results
+            </Button>
           </>
         ) : (
           <div className="h-full w-full flex justify-center items-center">

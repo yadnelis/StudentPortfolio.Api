@@ -6,7 +6,7 @@ Student portfolio is an application meant for acknowledging student achievements
 
 - Open the package manager console and set `StudentPortfolio` as the startup project.
 - Run the update-database command:
-  - Ensure the connection string for the database in the `appSettings.json` file is correct.
+  - Ensure the connection string for the database in the `appSettings.json` file is correct. This project connects to a **MySQL** server, so make sure that is running already.
 - Right click the StudentPortfolio project in visual studio and publish to a folder. This will create an executable file that runs the API and HTML server.
 
 > Remarks: The API project runs the npm build command -> the compiled React js application ends up in the wwroot folder. It is **not** necessary to build or move the React app manually.
@@ -23,7 +23,7 @@ Api for the student portfolio app.
 
 - Open the package manager console and set `StudentPortfolio` as the startup project.
 - Run the `update-database` command:
-  - Ensure the connection string for the database in the `appSettings.json` file is correct.
+  - Ensure the connection string for the database in the `appSettings.json` file is correct. This project connects to a **MySQL** server, so make sure that is running already.
 - Run the app form visual studio. API Requests can be made to https://localhost:56890/api.
 
 ## /StudentPortfolio.Client

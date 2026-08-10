@@ -29,6 +29,7 @@ namespace StudentPortfolio.Repositories
 
         public IQueryable<GetStudentResponse> Query(ODataQueryOptions<GetStudentResponse> opts)
         {
+            // Mapster breaks here so it is necesary to use this type of query
             var query = this.Get().Select(st => new GetStudentResponse
             {
                 Id = st.Id,
@@ -58,8 +59,6 @@ namespace StudentPortfolio.Repositories
 
             // posibly add some limits here to avoid users querying by properties we don't like
             var results = opts.ApplyTo(query) as IQueryable<GetStudentResponse>;
-
-            // Mapster breaks here so it is necesary to use this type of query
             return results;
         }
 

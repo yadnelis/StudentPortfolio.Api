@@ -19,6 +19,7 @@ export const Header: FC = () => {
     <header className=" bg-lime-800 flex justify-center items-center h-13 relative z-10">
       <AddStudentButton className="absolute left-5 top-6 z-10 max-md:scale-70 max-md:-left-1" />
       <StudentSearchInput />
+      <img src="logo.png" className="h-10 absolute right-4" />
     </header>
   );
 };

@@ -1,11 +1,4 @@
-import {
-  ChevronDown,
-  ChevronUp,
-  Dot,
-  PencilLine,
-  Plus,
-  Trash2,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, Dot, PencilLine, Trash2 } from "lucide-react";
 import moment from "moment";
 import {
   Children,
@@ -25,10 +18,14 @@ import { useOnClickOutsideElement } from "../hooks/useOnClickOutside";
 import type { Student } from "../types/dtos/student";
 import { cn } from "../utilities/cs";
 import { AcknowledgementTypePluralResc } from "../utilities/enumResources";
+import { AddAcknowledgeButton } from "./AddAcknowledgeButton";
 import { Button } from "./Button";
+import { Tooltip } from "./Tooltip";
 
-interface StudentProfileCardProps
-  extends Omit<ComponentProps<"div">, "className"> {
+interface StudentProfileCardProps extends Omit<
+  ComponentProps<"div">,
+  "className"
+> {
   institutionalId?: string;
   children: ReactNode;
 
@@ -60,7 +57,7 @@ export const StudentProfileCard: FC<StudentProfileCardProps> = ({
 
     if (!showHidden || Children.count(children) <= MAX_VISIBLE_LENGHT) {
       otherChildren = visibleChildren.slice(
-        childrenLenght - MAX_VISIBLE_LENGHT
+        childrenLenght - MAX_VISIBLE_LENGHT,
       );
       visibleChildren = visibleChildren.slice(0, MAX_VISIBLE_LENGHT);
     } else otherChildren = [];
@@ -110,7 +107,7 @@ export const StudentProfileCard: FC<StudentProfileCardProps> = ({
           "px-10 w-[90dvw]  max-w-300 py-7 space-y-2.5 bg-slate-50 shadow-lg outline-accent hover:outline-2 group/studentcard transition-all transition-200 ",
           "max-md:border border-transparent",
         ],
-        { "max-md:border-gray-300": active }
+        { "max-md:border-gray-300": active },
       )}
     >
       <div>
@@ -172,34 +169,32 @@ export const StudentProfileCard: FC<StudentProfileCardProps> = ({
         </div>
       )}
       <div
-        className={cn(
-          [
-            "mt-5 flex h-fit sm:gap-5 gap-1 justify-end",
-            "invisible has-[&.deleting]:visible group-hover/studentcard:visible group-focus-within/studentcard:visible group-active/studentcard:visible",
-          ],
-          {
-            "max-md:visible": active,
-          }
-        )}
+        className={cn("mt-5 flex h-fit sm:gap-5 gap-1 justify-end", {
+          "max-md:visible": active,
+        })}
       >
-        <Button color="danger" onClick={remove}>
-          <span className="flex items-center gap-2">
-            <Trash2 className="inline size-5" />{" "}
-            <span className="max-sm:hidden">Remove</span>
-          </span>
-        </Button>
-        <Button onClick={onClickEdit}>
-          <span className="flex items-center gap-2">
-            <PencilLine className="inline size-5" />{" "}
-            <span className="max-sm:hidden">Edit</span>
-          </span>
-        </Button>
-        <Button color={"accent"} onClick={addAcknowledgement}>
-          <span className="flex items-center gap-2">
-            <Plus className="inline size-5" />{" "}
-            <span className="max-sm:hidden">Acknowledge</span>
-          </span>
-        </Button>
+        <div
+          className={cn(
+            "contents",
+            "invisible has-[&.deleting]:visible group-hover/studentcard:visible group-focus-within/studentcard:visible group-active/studentcard:visible",
+          )}
+        >
+          <Tooltip label="Remove Student" variant="danger">
+            <Button color="danger" onClick={remove}>
+              <span className="flex items-center gap-2">
+                <Trash2 className="inline size-5" />
+              </span>
+            </Button>
+          </Tooltip>
+          <Tooltip label="Edit Student">
+            <Button onClick={onClickEdit}>
+              <span className="flex items-center gap-2">
+                <PencilLine className="inline size-5" />
+              </span>
+            </Button>
+          </Tooltip>
+        </div>
+        <AddAcknowledgeButton onClick={addAcknowledgement} />
       </div>
     </div>
   );

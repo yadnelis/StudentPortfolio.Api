@@ -15,6 +15,7 @@ import type { Student } from "../types/dtos/student";
 import { cn } from "../utilities/cs";
 import { ordinalSuffixOf } from "../utilities/utils";
 import { IconButton } from "./IconButton";
+import { Tooltip } from "./Tooltip";
 
 interface AcknowledgementProps {
   children?: string | string[];
@@ -42,7 +43,7 @@ export const AcknowledgementListItem: FC<AcknowledgementProps> = ({
   const contRef = useRef<HTMLDivElement>(null); //This is for mobile styling
   const [active, setActive] = useState(false); //This is for mobile styling
   const [removeAcknowledgement, { mutating }] = useMutation(
-    AcknowledgementApi.remove
+    AcknowledgementApi.remove,
   );
 
   const remove = () => {
@@ -73,7 +74,7 @@ export const AcknowledgementListItem: FC<AcknowledgementProps> = ({
 
   const TypeAndPlace = ({ className }: { className?: string }) => (
     <span className={"text-nowrap text-ellipsis overflow-hidden " + className}>
-      <span className="text-primary-500 font-semibold">
+      <span className="text-primary-600 font-semibold">
         {type === 0
           ? otherType
           : Object.entries(acknowledgementType).find((x) => x[1] === type)?.[0]}
@@ -98,7 +99,7 @@ export const AcknowledgementListItem: FC<AcknowledgementProps> = ({
           "border-t border-slate-300 flex gap-2 h-10 min-h-fit items-center max-sm:bg-slate-200/60",
           {
             "sm:border-b": !!description,
-          }
+          },
         )}
       >
         {/* Time */}
@@ -125,15 +126,19 @@ export const AcknowledgementListItem: FC<AcknowledgementProps> = ({
               {
                 "max-md:visible": active,
                 deleting: mutating,
-              }
+              },
             )}
           >
-            <IconButton onClick={edit} variant="secondary">
-              <Pencil />
-            </IconButton>
-            <IconButton onClick={remove} variant="danger" loading={mutating}>
-              <Trash />
-            </IconButton>
+            <Tooltip label="Edit Acknowledgement">
+              <IconButton onClick={edit} variant="secondary">
+                <Pencil />
+              </IconButton>
+            </Tooltip>
+            <Tooltip label="Remove Acknowledgement" variant="danger">
+              <IconButton onClick={remove} variant="danger" loading={mutating}>
+                <Trash />
+              </IconButton>
+            </Tooltip>
           </div>
         </div>
       </div>
@@ -142,7 +147,7 @@ export const AcknowledgementListItem: FC<AcknowledgementProps> = ({
       <div
         className={cn(
           "flex sm:hidden w-full overflow-hidden p-2 border-slate-300",
-          { "border-b": !!description }
+          { "border-b": !!description },
         )}
       >
         <TypeAndPlace className="" />

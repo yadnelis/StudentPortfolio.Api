@@ -1,5 +1,4 @@
 import { MantineProvider } from "@mantine/core";
-// import "@mantine/core/styles.layer.css";
 
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router";

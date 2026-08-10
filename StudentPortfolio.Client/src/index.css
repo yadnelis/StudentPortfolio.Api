@@ -1,6 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import "tailwindcss";
-@import "./styles/loader.css";
+
+@layer mantine {
+  @import "@mantine/core/styles/Tooltip.css";
+}
+
+@layer tailwind {
+  @import "tailwindcss";
+}
+
+@layer app {
+  @import "./styles/loader.css";
+}
 
 :root {
   --background: #ffffff;
@@ -101,14 +111,14 @@
   --text-9xl: 96px;
   --text-10xl: 128px;
 
-  --animate-light-bounce: light-bounce 0.8s ease-in-out infinite;
+  --animate-light-bounce: light-bounce 2s ease-in-out infinite;
   @keyframes light-bounce {
     0%,
     100% {
       transform: translateY(0%);
     }
     50% {
-      transform: translateY(-5%);
+      transform: translateY(-5px);
     }
   }
 }

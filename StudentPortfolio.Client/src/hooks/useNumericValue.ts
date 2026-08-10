@@ -5,15 +5,15 @@ export const useNumericValue = (
   value?: number,
   format?: string,
   min: number = Number.MIN_SAFE_INTEGER,
-  max: number = Number.MAX_SAFE_INTEGER
+  max: number = Number.MAX_SAFE_INTEGER,
 ) => {
   const defaultValue = value ?? (min > 0 ? min : 0);
   const [actualValue, setActualValue] = useState<number | undefined>(
-    defaultValue
+    defaultValue,
   );
 
   const [displayValue, setDisplayValue] = useState<string | undefined>(
-    getDisplayValue(defaultValue, format)
+    getDisplayValue(defaultValue, format),
   );
 
   const _setActualValue = useCallback(
@@ -24,9 +24,6 @@ export const useNumericValue = (
         return;
       }
       let strValue = value?.toString() ?? "";
-      // if (strValue?.toString().charAt(strValue.length - 1) == ".") {
-      //   strValue += 0;
-      // }
       let numericValue = Number(strValue);
 
       if (!isNaN(numericValue)) {
@@ -42,7 +39,7 @@ export const useNumericValue = (
       }
       return actualValue;
     },
-    [format, min, max, actualValue]
+    [format, min, max, actualValue],
   );
 
   return [actualValue, displayValue, _setActualValue] as const;

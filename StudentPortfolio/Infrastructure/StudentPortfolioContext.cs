@@ -8,9 +8,7 @@ namespace StudentPortfolio.Infrastructure
     {
         public DbSet<Acknowledgement> Acknowledgements { get; set; }
         public DbSet<Student> Students { get; set; }
-
         public StudentPortfolioContext(DbContextOptions<StudentPortfolioContext> options) : base(options) { }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Acknowledgement>().HasQueryFilter(b => !b.Deleted);

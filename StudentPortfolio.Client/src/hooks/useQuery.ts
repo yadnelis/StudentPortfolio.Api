@@ -12,11 +12,11 @@ interface UseListQueryOptions<TData> {
 
 export const useListQuery = <
   TData extends BaseEntity,
-  TArgs extends [string, ...any]
+  TArgs extends [string, ...any],
 >(
   fn: (...args: TArgs) => Promise<BaseResponse<TData[]>>,
   initialArgs: TArgs,
-  options?: UseListQueryOptions<TData>
+  options?: UseListQueryOptions<TData>,
 ) => {
   const lastArgs = useRef<TArgs>(initialArgs);
   const page = useRef(0);
@@ -33,7 +33,7 @@ export const useListQuery = <
       lastArgs.current = [...args];
 
       const searchParams = new URLSearchParams(args[0]);
-      searchParams.set("top", "100");
+      // searchParams.set("top", "100");
       args[0] = searchParams.toString();
 
       fn(...args)
@@ -48,7 +48,7 @@ export const useListQuery = <
           setIsFetching(false);
         });
     },
-    [fn]
+    [fn],
   );
 
   const fetchAppend = useCallback(() => {
@@ -79,7 +79,7 @@ export const useListQuery = <
   const setItem = useCallback((id: string, data: TData) => {
     dataHandlers.applyWhere(
       (x) => x?.id === id,
-      () => data
+      () => data,
     );
   }, []);
 

@@ -419,3 +419,4 @@ FodyWeavers.xsd
 
 wwwroot/
 .vite/
+/StudentPortfolio/appsettings.Development.json
