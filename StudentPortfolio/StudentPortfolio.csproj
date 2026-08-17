@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<ReactAppDir>$(MSBuildStartupDirectory)\StudentPortfolio.Client</ReactAppDir>
+		<ReactAppDir>$(MSBuildProjectDirectory)\..\StudentPortfolio.Client</ReactAppDir>
 	</PropertyGroup>
 
 	<Target Name="PublishRunWebpack" BeforeTargets="PrepareForPublish">
