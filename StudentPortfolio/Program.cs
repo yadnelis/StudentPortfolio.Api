@@ -34,8 +34,9 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 
 builder.Services.AddDbContext<StudentPortfolioContext>(sbContextoptions =>
     sbContextoptions
-    .UseSqlServer(connectionString)
-    .EnableDetailedErrors()
+    .UseSqlServer(connectionString, config
+        => config.EnableRetryOnFailure()
+    ).EnableDetailedErrors()
 );
 
 var app = builder.Build();
